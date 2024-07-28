@@ -1,75 +1,67 @@
-import { mergeSort } from './merge.js';
+import { Tree } from './bst.js';
 
-console.log('hello');
+const array = Array.from({ length: 10 }, () => Math.floor(Math.random() * 100));
 
-class Node {
-  constructor(val) {
-    this.data = val;
-    this.left = null;
-    this.right = null;
-  }
-}
-
-class Tree {
-  constructor(arr = []) {
-    this.arr = arr;
-    this.root = null;
-  }
-
-  buildTreeUnsorted(array) {
-    return this.buildTree(mergeSort(array));
-  }
-
-  buildTree(array) {
-    console.log(array);
-    const halfPoint = Math.floor(array.length / 2);
-
-    const root = new Node(array[halfPoint]);
-    console.log(root);
-
-    if (array.length === 1) {
-      return root;
-    } else {
-      const leftHalfRaw = array.slice(0, halfPoint);
-      const rightHalfRaw = array.slice(halfPoint + 1);
-
-      if (leftHalfRaw.length >= 1) {
-        root.left = this.buildTree(leftHalfRaw);
-      }
-      if (rightHalfRaw.length >= 1) {
-        root.right = this.buildTree(rightHalfRaw);
-      }
-    }
-    console.log(root);
-    return root;
-  }
-}
+console.log(array);
 
 const tree = new Tree();
 
-const te = tree.buildTree([1, 4, 9, 12, 99, 101]);
+tree.buildTreeUnsorted(array);
 
-console.log(te);
+tree.prettyPrint();
 
-const prettyPrint = (node, prefix = '', isLeft = true) => {
-  if (node === null) {
-    return;
-  }
-  if (node.right !== null) {
-    prettyPrint(node.right, `${prefix}${isLeft ? '│   ' : '    '}`, false);
-  }
-  console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.data}`);
-  if (node.left !== null) {
-    prettyPrint(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true);
-  }
-};
+console.log(tree.isBalanced());
 
-console.log(prettyPrint(te));
+console.log('Level Order: ');
+tree.levelOrder((x) => {
+  console.log(x);
+});
 
-const tp = tree.buildTreeUnsorted([
-  1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324,
-]);
+console.log('Pre Order: ');
+tree.preOrder((x) => {
+  console.log(x);
+});
 
-console.log(tp);
+console.log('Post Order: ');
+tree.postOrder((x) => {
+  console.log(x);
+});
 
-console.log(prettyPrint(tp));
+console.log('In Order Order: ');
+tree.inOrder((x) => {
+  console.log(x);
+});
+
+tree.insert(101);
+tree.insert(140);
+tree.insert(150);
+
+tree.prettyPrint();
+
+console.log(tree.isBalanced());
+
+tree.reBalance();
+
+tree.prettyPrint();
+
+console.log(tree.isBalanced());
+
+console.log('Level Order: ');
+tree.levelOrder((x) => {
+  console.log(x);
+});
+
+console.log('Pre Order: ');
+tree.preOrder((x) => {
+  console.log(x);
+});
+
+console.log('Post Order: ');
+tree.postOrder((x) => {
+  console.log(x);
+});
+
+console.log('In Order Order: ');
+tree.inOrder((x) => {
+  console.log(x);
+});
